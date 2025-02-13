@@ -51,13 +51,20 @@ resource "google_project_iam_member" "name" {
   member  = google_service_account.github-action.member
 }
 
+resource "random_id" "wip" {
+  keepers = {
+    first = "${timestamp()}"
+  }
+  byte_length = 8
+}
+
 module "oidc" {
   source  = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
   version = "~> 4.0"
 
   project_id          = var.project_id
-  pool_id             = "github-actions-pool"
-  provider_id         = "github-actions-provider"
+  pool_id             = "github-actions-pool-${random_id.wip.hex}"
+  provider_id         = "github-actions-provider-${random_id.wip.hex}"
   attribute_condition = <<EOT
     assertion.ref_type == "branch"
   EOT
