@@ -2,7 +2,7 @@ output "oidc" {
   value = module.oidc
 }
 
-output "gihtub_sa_email" {
+output "github_sa_email" {
   value = google_service_account.github-action.email
 }
 
