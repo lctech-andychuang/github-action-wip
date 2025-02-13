@@ -7,3 +7,10 @@ variable "project_id" {
 variable "region" {
   type = string
 }
+
+variable "oidc_name" {
+  type    = string
+  default = null
+}
+
+
