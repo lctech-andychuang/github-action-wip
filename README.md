@@ -49,7 +49,7 @@ The `variables.tf` file defines configurable parameters. You can customize them 
 
 ## License
 
-This project is licensed under [MIT License](LICENSE).
+This project is licensed under [Apache License](LICENSE).
 
 ## Author
 
