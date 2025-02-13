@@ -1,3 +1,18 @@
+module "project-services" {
+  source  = "terraform-google-modules/project-factory/google//modules/project_services"
+  version = "~> 12.0"
+
+  project_id = var.project_id
+  # enable_apis = var.enable_apis
+
+  activate_apis = [
+    "iam.googleapis.com",
+    "clouddeploy.googleapis.com",
+    "run.googleapis.com"
+  ]
+  disable_services_on_destroy = false
+}
+
 resource "google_artifact_registry_repository" "repo" {
   location      = var.region
   repository_id = "cloud-run-artifacts"
