@@ -49,7 +49,7 @@ This repository contains Terraform configurations to set up a Google Cloud Platf
 ## GitHub Actions Integration
 
 Once the Workload Identity Pool is created, configure GitHub Actions to authenticate with GCP:
-  ```markdown
+  ```yaml
   name: GCP Workload Identity Federation
 
   on:
