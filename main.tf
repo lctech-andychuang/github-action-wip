@@ -59,8 +59,10 @@ module "oidc" {
   pool_id             = "${var.oidc_name}-pool"
   provider_id         = "${var.oidc_name}-provider"
   attribute_condition = <<EOT
-    assertion.ref_type == "branch"
+    assertion.ref_type == "branch" &&
+    assertion.repository_owner == "${var.repo_owner}" &&
   EOT
+
   issuer_uri          = "https://token.actions.githubusercontent.com"
 
   sa_mapping = {
