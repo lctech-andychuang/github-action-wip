@@ -39,12 +39,12 @@ resource "time_rotating" "mykey_rotation" {
 # You may need to add more roles depending on what other GCP resources you need to interact with during deployment.
 resource "google_project_iam_member" "name" {
   for_each = toset([
-    "roles/run.admin",
+    "roles/run.viewer",
     "roles/storage.admin",
     "roles/artifactregistry.writer",
-    "roles/iam.serviceAccountTokenCreator",
+    # "roles/iam.serviceAccountTokenCreator",
     "roles/iam.serviceAccountUser",
-    "roles/clouddeploy.admin",
+    "roles/clouddeploy.operator",
   ])
   project = var.project_id
   role    = each.key
@@ -60,7 +60,7 @@ module "oidc" {
   provider_id         = "${var.oidc_name}-provider"
   attribute_condition = <<EOT
     assertion.ref_type == "branch" &&
-    assertion.repository_owner == "${var.repo_owner}" 
+    assertion.repository_owner == "${var.repo_owner}"
   EOT
 
   issuer_uri          = "https://token.actions.githubusercontent.com"
