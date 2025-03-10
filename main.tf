@@ -20,8 +20,8 @@ module "buckets-roles" {
   target_level         = "project"
   target_id            = var.project_id
   role_id              = "bucketWriter"
-  title                = "Bucket writer"
-  description          = "Bucket writer"
+  title                = "Bucket Writer"
+  description          = "Bucket Writer"
   # base_roles           = ["roles/iam.serviceAccountAdmin"]
   permissions          = ["storage.buckets.get","storage.buckets.list","storage.buckets.create"]
   # excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
