@@ -56,7 +56,7 @@ resource "google_project_iam_member" "name" {
   for_each = toset([
     "roles/run.viewer",
     # "roles/storage.admin",
-    module.buckets-roles.custom_role_id,
+    module.buckets-roles.custom_role_name,
     "roles/artifactregistry.writer",
     # "roles/iam.serviceAccountTokenCreator",
     "roles/iam.serviceAccountUser",
