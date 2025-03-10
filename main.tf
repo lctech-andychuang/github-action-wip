@@ -23,7 +23,7 @@ module "buckets-roles" {
   title                = "Bucket Writer"
   description          = "Bucket Writer"
   # base_roles           = ["roles/iam.serviceAccountAdmin"]
-  permissions          = ["storage.buckets.get","storage.buckets.list","storage.buckets.create"]
+  permissions          = ["storage.buckets.get","storage.buckets.list","storage.buckets.create", "storage.objects.create"]
   # excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
   # members              = ["user:user01@domain.com", "group:group01@domain.com"]
 }
