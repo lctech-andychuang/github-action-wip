@@ -13,6 +13,21 @@ module "project-services" {
   disable_services_on_destroy = false
 }
 
+module "custom-roles" {
+  source  = "terraform-google-modules/iam/google//modules/custom_role_iam"
+  version = "~> 8.1"
+
+  target_level         = "project"
+  target_id            = var.project_id
+  role_id              = "dciBucketWriter"
+  title                = "DCI Bucket writer"
+  description          = "DCI Bucket writer"
+  # base_roles           = ["roles/iam.serviceAccountAdmin"]
+  permissions          = ["storage.buckets.get"," storage.buckets.list","storage.buckets.create"]
+  # excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
+  # members              = ["user:user01@domain.com", "group:group01@domain.com"]
+}
+
 resource "google_artifact_registry_repository" "repo" {
   location      = var.region
   repository_id = "cloud-run-artifacts"
