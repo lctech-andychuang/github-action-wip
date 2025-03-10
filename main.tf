@@ -13,6 +13,21 @@ module "project-services" {
   disable_services_on_destroy = false
 }
 
+module "buckets-roles" {
+  source  = "terraform-google-modules/iam/google//modules/custom_role_iam"
+  version = "~> 8.1"
+
+  target_level         = "project"
+  target_id            = var.project_id
+  role_id              = "bucketWriter"
+  title                = "Bucket writer"
+  description          = "Bucket writer"
+  # base_roles           = ["roles/iam.serviceAccountAdmin"]
+  permissions          = ["storage.buckets.get","storage.buckets.list","storage.buckets.create"]
+  # excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
+  # members              = ["user:user01@domain.com", "group:group01@domain.com"]
+}
+
 resource "google_artifact_registry_repository" "repo" {
   location      = var.region
   repository_id = "cloud-run-artifacts"
@@ -40,7 +55,8 @@ resource "time_rotating" "mykey_rotation" {
 resource "google_project_iam_member" "name" {
   for_each = toset([
     "roles/run.viewer",
-    "roles/storage.admin",
+    # "roles/storage.admin",
+    module.buckets-roles.role_id,
     "roles/artifactregistry.writer",
     # "roles/iam.serviceAccountTokenCreator",
     "roles/iam.serviceAccountUser",
